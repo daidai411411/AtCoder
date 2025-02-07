@@ -19,15 +19,28 @@
 using namespace std;
 using ll = long long;
 
+ll Max(ll i, ll h, ll n) {
+	for (int j = i - 1; j >= 0; j--) n += (h - 1) * pow(10, j);
+	return n;
+}
+
+ll Dfs(const ll& l, const ll& r, ll i, ll h, ll n) {
+	cout << i << " " << h << " " << n << endl;
+	if (Max(i, h, n) < l or r < n) return 0;
+	if (i == 0) {cout << "found 1" << endl; return 1;}
+	if (l <= n and Max(i, h, n) <= r) {cout << "found 10^" << i << endl; return pow(10, i);}
+	ll ans = 0;
+	for (int j = 0; j < h; j++) ans += Dfs(l, r, i - 1, j == 0 ? 10 : j, n + j * pow(10, i - 1));
+	return ans;
+}
+
 int main() {
-	string l_str, r_str;
-	cin >> l_str >> r_str;
-	vector<int> l(l_str.size()), r(r_str.size());
-	for (int i = 0; i < l.size(); i++) l[i] = l_str[i] - '0';
-	for (int i = 0; i < r.size(); i++) r[i] = r_str[i] - '0';
+	ll l, r;
+	cin >> l >> r;
 
+	ll ans = Dfs(l, r, 18, 10, 0) + Dfs(l, r, 18, 1, pow(10, 18));
 
-
+	cout << ans << endl;
 
 	return 0;
 }
