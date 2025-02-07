@@ -18,27 +18,31 @@
 
 using namespace std;
 using ll = long long;
+using ull = unsigned long long;
 
-ll Max(ll i, ll h, ll n) {
-	for (int j = i - 1; j >= 0; j--) n += (h - 1) * pow(10, j);
-	return n;
-}
-
-ll Dfs(const ll& l, const ll& r, ll i, ll h, ll n) {
-	cout << i << " " << h << " " << n << endl;
-	if (Max(i, h, n) < l or r < n) return 0;
-	if (i == 0) {cout << "found 1" << endl; return 1;}
-	if (l <= n and Max(i, h, n) <= r) {cout << "found 10^" << i << endl; return pow(10, i);}
-	ll ans = 0;
-	for (int j = 0; j < h; j++) ans += Dfs(l, r, i - 1, j == 0 ? 10 : j, n + j * pow(10, i - 1));
+ull Dfs(const ull& l, const ull& r, ull i, ull h, ull n) {
+	ull max = 0ULL;
+	for (int j = i - 1; j >= 0; j--) max = max * 10 + h - 1;
+	max += n;
+	if (max < l or r < n) return 0;
+	if (i == 0) return 1;
+	if (l <= n and max <= r) return powl(h, i);
+	ull ans = 0;
+	for (int j = 0; j < h; j++) {
+		ull next_h;
+		if (h != 10) next_h = h;
+		else if (j == 0) next_h = 10;
+		else next_h = j;
+		ans += Dfs(l, r, i - 1, next_h, n + j * powl(10, i - 1));
+	}
 	return ans;
 }
 
 int main() {
-	ll l, r;
+	ull l, r;
 	cin >> l >> r;
 
-	ll ans = Dfs(l, r, 18, 10, 0) + Dfs(l, r, 18, 1, pow(10, 18));
+	ull ans = Dfs(l, r, 19, 10, 0);
 
 	cout << ans << endl;
 
