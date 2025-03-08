@@ -18,14 +18,8 @@
 
 using namespace std;
 using ll = long long;
+using ull = unsigned long long;
 
 int main() {
-	multiset<int> ms;
-	ms.insert(1);
-	ms.insert(4);
-	ms.insert(1);
-	ms.insert(2);
-	for (int i : ms) cout << i << " ";
-	cout << endl;
 	return 0;
 }
