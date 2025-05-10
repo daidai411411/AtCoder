@@ -21,6 +21,7 @@ using ll = long long;
 using ull = unsigned long long;
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
+
 class CombMod {
    private:
 	ll m_;
@@ -40,3 +41,67 @@ class CombMod {
 		return fact_[n] * (fact_inv_[k] * fact_inv_[n - k] % m_) % m_;
 	}
 };
+
+/*----------------------------------------------------------------------------------------------------------------------------*/
+
+class UnionFind {
+   private:
+	int n_;
+	int numof_unions_;
+	vector<int> parent_;
+	vector<int> root_size_;
+
+   public:
+	UnionFind(const int n) : n_(n), numof_unions_(n), parent_(n), root_size_(n, 1) {
+		iota(parent_.begin(), parent_.end(), 0);
+	}
+
+	int Root(const int u) {
+		if (parent_[u] == u) return u;
+		else {
+			parent_[u] = Root(parent_[u]);
+			return parent_[u];
+		}
+	}
+
+	void Unite(const int u, const int v) {
+		int root_u = Root(u), root_v = Root(v);
+		if (root_u != root_v) {
+			numof_unions_--;
+			parent_[root_v] = root_u;
+			root_size_[root_u] += root_size_[root_v];
+		}
+	}
+
+	bool Same(const int u, const int v) {
+		return (Root(u) == Root(v));
+	}
+
+	int NumofUnions(void) {
+		return numof_unions_;
+	}
+
+	int UnionSize(const int u) {
+		return root_size_[Root(u)];
+	}
+
+	vector<vector<int>> Unions(void) {
+		vector<int> indices(n_, -1);
+		vector<vector<int>> unions;
+		for (int i = 0; i < n_; i++) {
+			if (indices[Root(i)] == -1) {
+				indices[Root(i)] = unions.size();
+				unions.emplace_back(1, i);
+			} else {
+				unions[indices[Root(i)]].emplace_back(i);
+			}
+		}
+		return unions;
+	}
+};
+
+/*----------------------------------------------------------------------------------------------------------------------------*/
+
+int main(void) {
+	return 0;
+}
