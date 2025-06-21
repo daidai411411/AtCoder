@@ -37,7 +37,7 @@ bool ChMin(T& min, T val) {
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
 
-class CombMod {
+struct CombMod {
    private:
 	ll m_;
 	vector<ll> fact_, inv_, fact_inv_;
@@ -59,7 +59,7 @@ class CombMod {
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
 
-class UnionFind {
+struct UnionFind {
    private:
 	int n_;
 	int numof_unions_;
