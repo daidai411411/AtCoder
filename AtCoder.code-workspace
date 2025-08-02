@@ -64,7 +64,8 @@
 			"variant": "cpp",
 			"algorithm": "cpp",
 			"climits": "cpp",
-			"ranges": "cpp"
+			"ranges": "cpp",
+			"span": "cpp"
 		}
 	}
 }
