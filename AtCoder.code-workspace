@@ -63,7 +63,8 @@
 			"unordered_set": "cpp",
 			"variant": "cpp",
 			"algorithm": "cpp",
-			"climits": "cpp"
+			"climits": "cpp",
+			"ranges": "cpp"
 		}
 	}
 }
